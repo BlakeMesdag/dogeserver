@@ -7,4 +7,9 @@ class Account < ActiveRecord::Base
   def balance
     transactions.sum(:amount)
   end
+
+  def serializable_hash(options)
+    new_options = (options || {}).merge(except: [:id, :key, :updated_at, :created_at])
+    super new_options
+  end
 end
