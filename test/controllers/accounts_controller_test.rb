@@ -4,7 +4,7 @@ class AccountsControllerTest < ActionController::TestCase
   test 'show account' do
     get :show, name: small_account.name, key: small_account.key, format: :json
 
-    assert_equal small_account.to_json, response.body
+    assert_equal small_account.to_json(methods: :balance), response.body
     assert_response :success
   end
 
