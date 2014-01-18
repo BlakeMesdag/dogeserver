@@ -5,7 +5,6 @@ gem 'rails', '4.0.2'
 gem 'redis'
 gem 'pg'
 
-gem 'rails_12factor'
 gem 'thin'
 gem 'httparty'
 
@@ -23,4 +22,8 @@ end
 group :test do
   gem 'fakeweb', '~> 1.3'
   gem 'fakeredis'
+end
+
+group :production do
+  gem 'rails_12factor'
 end
