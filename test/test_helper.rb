@@ -12,7 +12,7 @@ class ActiveSupport::TestCase
   fixtures :all
 
   FakeWeb.allow_net_connect = false
-  FakeWeb.register_uri(:get, %r|.+dogeapi.+get_new_address.+|, body: "j39fie")
+  FakeWeb.register_uri(:get, /.+dogeapi.+get_new_address.+/, body: "j39fie")
 
   def small_account
     accounts(:small)
