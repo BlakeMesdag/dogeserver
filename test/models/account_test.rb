@@ -6,6 +6,6 @@ class AccountTest < ActiveSupport::TestCase
     small_account.transactions.create(amount: 32)
     small_account.transactions.create(amount: -10)
 
-    assert_equal 42, small_account.balance
+    assert_equal 142, small_account.balance
   end
 end
