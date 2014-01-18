@@ -3,3 +3,7 @@
 small:
   name: 'unicorn-user-136'
   key: 'secret'
+
+large:
+  name: 'unicorn-user-1'
+  key: 'secret2'

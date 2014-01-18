@@ -14,4 +14,8 @@ class ActiveSupport::TestCase
   def small_account
     accounts(:small)
   end
+
+  def large_account
+    accounts(:large)
+  end
 end
