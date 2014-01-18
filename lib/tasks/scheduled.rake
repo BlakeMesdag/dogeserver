@@ -1,4 +1,5 @@
 namespace :scheduled do
-  task :check_deposits => :environment do
+  task :fetch_deposits => :environment do
+    Account.fetch_deposits
   end
 end

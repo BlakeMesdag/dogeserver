@@ -3,6 +3,7 @@ ruby '2.0.0'
 
 gem 'rails', '4.0.2'
 gem 'redis'
+gem 'redis-objects'
 gem 'pg'
 
 gem 'thin'
@@ -17,11 +18,11 @@ gem 'jquery-rails'
 group :development, :test do
   gem 'pry-rails'
   gem 'pry-plus'
+  gem 'fakeredis'
 end
 
 group :test do
   gem 'fakeweb', '~> 1.3'
-  gem 'fakeredis'
 end
 
 group :production do
