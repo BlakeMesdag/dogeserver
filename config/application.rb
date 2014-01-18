@@ -24,3 +24,11 @@ module Dogeserver
     config.generators.helper = false
   end
 end
+
+module Settings  
+  KEYS = if Rails.env.production? 
+    ENV
+  else
+    YAML.load_file("config/keys.yml")[Rails.env] rescue {}
+  end
+end
