@@ -25,7 +25,7 @@ ActiveRecord::Schema.define(version: 20140118042313) do
   end
 
   create_table "transactions", force: true do |t|
-    t.integer  "amount"
+    t.float    "amount"
     t.integer  "account_id"
     t.datetime "created_at"
     t.datetime "updated_at"

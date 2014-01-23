@@ -11,7 +11,7 @@ class Account < ActiveRecord::Base
   validates :name, uniqueness: true
 
   def self.fetch_deposits
-    Account.find_each do |a|
+    find_each do |a|
       if a.remote_deposits_sum > a.local_deposits_sum
         a.transactions.create!(amount: a.remote_deposits_sum - a.local_deposits_sum)
         a.deposited = a.remote_deposits_sum
@@ -33,7 +33,7 @@ class Account < ActiveRecord::Base
   end
 
   def local_deposits_sum
-    @local_deposits_sum ||= deposited
+    @local_deposits_sum ||= deposited.to_f
   end
 
   private
