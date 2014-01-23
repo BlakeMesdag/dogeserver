@@ -4,11 +4,13 @@ class Account < ActiveRecord::Base
   value :deposited
 
   has_many :transactions
+  has_many :withdrawals
 
   before_validation :set_deposit_address
 
   validates :name, :key, :deposit_address, presence: true
   validates :name, uniqueness: true
+  validates :deposit_address, length: { is: 34 }
 
   def self.fetch_deposits
     find_each do |a|

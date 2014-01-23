@@ -3,9 +3,9 @@
 small:
   name: 'unicorn-user-136'
   key: 'secret'
-  deposit_address: 3baf9abb8ff432d0c57650d2326fec6e
+  deposit_address: a2feb9a8aa5edc82188a74c69a8f4ec6e2
 
 large:
   name: 'unicorn-user-1'
   key: 'secret2'
-  deposit_address: 2f2d00ecdf180beeb6a3cf6d3afaa17f
+  deposit_address: 7596df8fdba88e13327a2790fc937c93b7

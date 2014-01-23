@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140118042313) do
+ActiveRecord::Schema.define(version: 20140123072008) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -32,5 +32,15 @@ ActiveRecord::Schema.define(version: 20140118042313) do
   end
 
   add_index "transactions", ["account_id"], name: "index_transactions_on_account_id", using: :btree
+
+  create_table "withdrawals", force: true do |t|
+    t.string   "to"
+    t.float    "amount"
+    t.integer  "account_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "withdrawals", ["account_id"], name: "index_withdrawals_on_account_id", using: :btree
 
 end

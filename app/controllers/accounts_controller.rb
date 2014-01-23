@@ -13,10 +13,6 @@ class AccountsController < ApplicationController
     respond_with @account
   end
 
-  def deposit
-
-  end
-
   private
 
   def account_params

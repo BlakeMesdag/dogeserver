@@ -11,4 +11,8 @@ module DogeAPI
   def get_address_received(deposit_address)
     get("get_address_received&payment_address=#{deposit_address}").parsed_response
   end
+
+  def withdraw(to, amount)
+    get("withdraw&amount=#{amount}&payment_address=#{to}")
+  end
 end
