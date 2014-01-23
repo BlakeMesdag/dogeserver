@@ -9,6 +9,7 @@ class AccountTest < ActiveSupport::TestCase
   end
 
   test "balance" do
+    small_account.transactions.delete_all
     small_account.transactions.create(amount: 20)
     small_account.transactions.create(amount: 32)
     small_account.transactions.create(amount: -10)
