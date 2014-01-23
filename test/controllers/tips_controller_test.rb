@@ -2,7 +2,7 @@ require 'test_helper'
 
 class TipsControllerTest < ActionController::TestCase
   test "creating a tip" do
-    expected_response = { 
+    expected_response = {
       "from" => {
         "name" => "unicorn-user-1"
       },
@@ -17,8 +17,8 @@ class TipsControllerTest < ActionController::TestCase
     amount      = 10
 
     post :create, from: from_params, to: to_params, amount: amount, format: :json
-  
-    assert_equal expected_response, JSON.parse(response.body)
+
+    assert_equal expected_response.to_json, response.body
     assert_response :created
   end
 end

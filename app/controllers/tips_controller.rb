@@ -4,7 +4,7 @@ class TipsController < ApplicationController
   def create
     from = Account.find_by(name: from_params[:name], key: from_params[:key])
     to   = Account.find_by(name: to_params[:name])
-    
+
     @tip = Tip.create(from, to, amount_params)
 
     respond_with @tip, location: nil
