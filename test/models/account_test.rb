@@ -13,14 +13,15 @@ class AccountTest < ActiveSupport::TestCase
     small_account.transactions.create(amount: 32)
     small_account.transactions.create(amount: -10)
 
-    assert_equal 142, small_account.balance
+    assert_equal (20 + 32 - 10), small_account.balance
   end
 
   test "fetching balances" do
     small_account.deposited = large_account.deposited = 0.9
     stub_get_address_received_returns(["1.53921539", "1.95831023"])
+    expected_combined_account_difference = (1.53921539 - 0.9) + (1.95831023 - 0.9)
 
-    assert_difference "small_account.balance + large_account.balance", 1.69752562 do
+    assert_difference "small_account.balance + large_account.balance", expected_combined_account_difference do
       Account.fetch_deposits
     end
   end
