@@ -13,8 +13,6 @@ class ActiveSupport::TestCase
 
   FakeWeb.allow_net_connect = false
   FakeWeb.register_uri(:get, /.+dogeapi.+get_new_address.+/, body: "j39fie")
-  FakeWeb.register_uri(:get, /.+dogeapi.+get_my_addresses.+/, body: [])
-  FakeWeb.register_uri(:get, /.+dogeapi.+get_address_received.+/, body: "11.25943373")
 
   def small_account
     accounts(:small)
