@@ -22,11 +22,13 @@ module Dogeserver
 
     config.generators.assets = false
     config.generators.helper = false
+
+    config.i18n.enforce_available_locales = false
   end
 end
 
-module Settings  
-  KEYS = if Rails.env.production? 
+module Settings
+  KEYS = if Rails.env.production?
     ENV
   else
     YAML.load_file("config/keys.yml")[Rails.env] rescue {}

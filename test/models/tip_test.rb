@@ -8,4 +8,10 @@ class TipTest < ActiveSupport::TestCase
       end
     end
   end
+
+  test "a too large tip doesnt create transactions" do
+    assert_no_difference "Transaction.count" do
+      Tip.create(small_account, large_account, 9000)
+    end
+  end
 end

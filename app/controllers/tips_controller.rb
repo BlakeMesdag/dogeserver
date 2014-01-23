@@ -1,3 +1,7 @@
+class TipSerializer < ActiveModel::Serializer
+  attributes :from, :to, :amount
+end
+
 class TipsController < ApplicationController
   respond_to :json
 
@@ -7,7 +11,7 @@ class TipsController < ApplicationController
 
     @tip = Tip.create(from, to, amount_params)
 
-    respond_with @tip, location: nil
+    respond_with @tip, serializer: TipSerializer, location: nil
   end
 
   private
