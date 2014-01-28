@@ -5,7 +5,7 @@ class TipTest < ActiveSupport::TestCase
     assert_difference "Transaction.count", 2 do
       assert_difference "small_account.balance", 10 do
         assert_difference "large_account.balance", -10 do
-          Tip.create(large_account, small_account, 10)
+          Tip.create!(from: large_account, to: small_account, amount: 10)
         end
       end
     end
@@ -13,27 +13,13 @@ class TipTest < ActiveSupport::TestCase
 
   test "a too large tip doesnt create transactions" do
     assert_no_difference "Transaction.count" do
-      Tip.create(small_account, large_account, 9000)
+      Tip.create(from: small_account, to: large_account, amount: 9000)
     end
   end
 
-  test "nil from doesnt create transactions" do
+  test "invalid params doesnt create transactions" do
     assert_no_difference "Transaction.count" do
-      Tip.create(nil, large_account, 1)
+      Tip.create(to: large_account, amount: 1)
     end
-  end
-
-  test "nil to doesnt create transactions" do
-    assert_no_difference "Transaction.count" do
-      Tip.create(small_account, nil, 1)
-    end
-  end
-
-  test "errors are present after invalid creation" do
-    expected_errors = { tip: "Failed to create tip" }
-
-    tip = Tip.create(small_account, large_account, 9000)
-
-    assert_equal expected_errors, tip.errors
   end
 end

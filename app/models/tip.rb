@@ -1,33 +1,35 @@
-class Tip
-  attr_reader :errors, :from, :to, :amount
+class Tip < ActiveRecord::Base
+  belongs_to :to, class_name: 'Account'
+  belongs_to :from, class_name: 'Account'
 
-  def initialize(from, to, amount)
-    @from   = from
-    @to     = to
-    @amount = amount
-    @errors = []
+  validate :sender_has_enough_funds
+  validates :to_id, :from_id, :amount, presence: true
+  after_create :create_transactions
+
+  def serializable_hash(options = {})
+    super options.merge({ except: [:id, :to_id, :from_id], methods: [:to_name, :from_name] })
   end
 
-  def self.create(from, to, amount)
-    tip = new(from, to, amount)
-    tip.complete
-    tip
+  def to_name
+    to.name
   end
 
-  def complete
+  def from_name
+    from.name
+  end
+
+  def create_transactions
     ActiveRecord::Base.transaction do
-      @from_transaction = @from.transactions.create!(amount: @amount * -1)
-      @to_transaction   = @to.transactions.create!(amount: @amount)
+      from.transactions.create!(amount: amount * -1)
+      to.transactions.create!(amount: amount)
     end
-  rescue
-    @errors = { tip:  "Failed to create tip" }
   end
 
-  def has_errors?
-    @errors || false
-  end
+  private
 
-  def read_attribute_for_serialization(a)
-    send(a)
+  def sender_has_enough_funds
+    return unless from.try(:balance) && amount
+
+    errors.add(:amount, "is greater than sender's balance") if from.balance < amount
   end
 end

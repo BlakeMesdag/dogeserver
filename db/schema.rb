@@ -24,6 +24,15 @@ ActiveRecord::Schema.define(version: 20140123072008) do
     t.string   "deposit_address"
   end
 
+  create_table "tips", force: true do |t|
+    t.integer "from_id"
+    t.integer "to_id"
+    t.float   "amount"
+  end
+
+  add_index "tips", ["from_id"], name: "index_tips_on_from_id", using: :btree
+  add_index "tips", ["to_id"], name: "index_tips_on_to_id", using: :btree
+
   create_table "transactions", force: true do |t|
     t.float    "amount"
     t.integer  "account_id"
