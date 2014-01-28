@@ -1,6 +1,6 @@
 Dogeserver::Application.routes.draw do
   resources :accounts, only: [:show, :create], param: :name do
-    resources :withdrawals, only: [:create]
+    resources :withdrawals, only: :create
   end
 
   resources :tips, only: [:create]

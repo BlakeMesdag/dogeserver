@@ -1,14 +1,14 @@
 class Transaction < ActiveRecord::Base
   belongs_to :account
 
-  before_validation :zero_amount
+  before_validation :set_zero_amount
 
   validates :amount, presence: true
   validate :positive_balance
 
   private
 
-  def zero_amount
+  def set_zero_amount
     self.amount ||= 0
   end
 

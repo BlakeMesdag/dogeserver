@@ -25,9 +25,8 @@ class Account < ActiveRecord::Base
     transactions.sum(:amount)
   end
 
-  def serializable_hash(options)
-    new_options = (options || {}).merge(except: [:id, :key, :updated_at, :created_at, :deposit_address])
-    super new_options
+  def serializable_hash(options = {})
+    super options.merge(except: [:id, :key, :updated_at, :created_at, :deposit_address])
   end
 
   def remote_deposits_sum
@@ -41,6 +40,6 @@ class Account < ActiveRecord::Base
   private
 
   def set_deposit_address
-    self.deposit_address = DogeAPI.get_new_address(name)
+    self.deposit_address ||= DogeAPI.get_new_address(name)
   end
 end
