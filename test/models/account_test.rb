@@ -18,7 +18,8 @@ class AccountTest < ActiveSupport::TestCase
   end
 
   test "fetching balances" do
-    small_account.deposited = large_account.deposited = 0.9
+    small_account.update_attributes(deposited: 0.9)
+    large_account.update_attributes(deposited: 0.9)
     stub_get_address_received_returns(["1.53921539", "1.95831023"])
     expected_combined_account_difference = (1.53921539 - 0.9) + (1.95831023 - 0.9)
 

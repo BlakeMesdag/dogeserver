@@ -1,22 +1,18 @@
 class Account < ActiveRecord::Base
-  include Redis::Objects
-
-  value :deposited
-
   has_many :transactions
   has_many :withdrawals
 
   before_validation :set_deposit_address
 
-  validates :name, :key, :deposit_address, presence: true
+  validates :name, :key, :deposit_address, :deposited, presence: true
   validates :name, uniqueness: true
   validates :deposit_address, length: { is: 34 }
 
   def self.fetch_deposits
     find_each do |a|
-      if a.remote_deposits_sum > a.local_deposits_sum
-        a.transactions.create!(amount: a.remote_deposits_sum - a.local_deposits_sum)
-        a.deposited = a.remote_deposits_sum
+      if a.remote_deposits_sum > a.deposited
+        a.transactions.create!(amount: a.remote_deposits_sum - a.deposited)
+        a.update_attributes(deposited: a.remote_deposits_sum)
       end
     end
   end
@@ -31,10 +27,6 @@ class Account < ActiveRecord::Base
 
   def remote_deposits_sum
     @remote_deposits_sum ||= DogeAPI.get_address_received(deposit_address)
-  end
-
-  def local_deposits_sum
-    @local_deposits_sum ||= deposited.to_f
   end
 
   private
