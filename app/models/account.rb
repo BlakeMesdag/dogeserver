@@ -34,6 +34,9 @@ class Account < ActiveRecord::Base
   private
 
   def set_deposit_address
-    self.deposit_address ||= DogeAPI.get_new_address(name)
+    puts "SETTING DEPOSIT ADDRESS"
+    r = DogeAPI.get_new_address(name)
+    puts r
+    self.deposit_address ||= r
   end
 end
