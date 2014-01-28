@@ -1,6 +1,8 @@
 class Account < ActiveRecord::Base
-  has_many :transactions
-  has_many :withdrawals
+  has_many :transactions, dependent: :nullify
+  has_many :withdrawals, dependent: :nullify
+  has_many :received_tips, class_name: 'Tip', foreign_key: 'to_id', dependent: :nullify
+  has_many :sent_tips, class_name: 'Tip', foreign_key: 'from_id', dependent: :nullify
 
   before_validation :set_deposit_address
 
