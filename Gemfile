@@ -4,8 +4,11 @@ ruby '2.0.0'
 gem 'rails', '4.0.2'
 gem 'pg'
 
-gem 'thin'
 gem 'httparty'
+
+group :development do
+  gem 'thin'
+end
 
 group :development, :test do
   gem 'pry-rails'
@@ -19,4 +22,5 @@ end
 
 group :production do
   gem 'rails_12factor'
+  gem 'unicorn'
 end
