@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140123072008) do
+ActiveRecord::Schema.define(version: 20140127042741) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -44,6 +44,7 @@ ActiveRecord::Schema.define(version: 20140123072008) do
 
   create_table "withdrawals", force: true do |t|
     t.string   "to"
+    t.string   "confirmation"
     t.float    "amount"
     t.integer  "account_id"
     t.datetime "created_at"
