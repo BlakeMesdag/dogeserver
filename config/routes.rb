@@ -4,4 +4,6 @@ Dogeserver::Application.routes.draw do
   end
 
   resources :tips, only: [:create]
+
+  get 'ping', to: 'application#ping'
 end
