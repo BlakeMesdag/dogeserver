@@ -2,26 +2,18 @@ class TipsController < ApplicationController
   respond_to :json
 
   def create
-    from = Account.find_by(name: from_params[:name], key: from_params[:key])
-    to   = Account.find_by(name: to_params[:name])
+    from = Account.find_by(name: params[:account_name], key: params[:key])
+    to   = Account.find_by(name: tip_params[:to])
 
-    @tip = Tip.create(from: from, to: to, amount: amount_params)
+    @tip = Tip.create(from: from, to: to, amount: tip_params[:amount])
 
     respond_with @tip, location: nil
   end
 
   private
 
-  def amount_params
-    params.require(:amount)
-  end
-
-  def from_params
-    params.require(:from).permit(:name, :key)
-  end
-
-  def to_params
-    params.require(:to).permit(:name)
+  def tip_params
+    params.require(:tip).permit(:to, :amount)
   end
 
 end

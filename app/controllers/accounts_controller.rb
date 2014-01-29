@@ -22,5 +22,4 @@ class AccountsController < ApplicationController
   def load_account
     @account = Account.find_by(name: params[:name], key: params[:key])
   end
-
 end
