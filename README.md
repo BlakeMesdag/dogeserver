@@ -1,7 +1,7 @@
 Dogeserver
 ==========
 
-
+All requests must be json and over https. 
 
 ### Creating an account
     POST https://dogeserver.herokuapp.com/accounts
