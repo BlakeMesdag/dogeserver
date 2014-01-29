@@ -4,7 +4,7 @@ module DogeAPI
   include HTTParty
   extend self
 
-  base_uri "https://www.dogeapi.com/wow/?api_key=#{Settings::KEYS['DOGEAPI_API_KEY']}&a="
+  base_uri "https://www.dogeapi.com/wow/?api_key=#{Settings::KEYS['DOGE_API_KEY']}&a="
 
   def get_new_address(address_label)
     get_with_logging("get_new_address&address_label=#{address_label}")
@@ -22,11 +22,11 @@ module DogeAPI
 
   def get_with_logging(query)
     response = get(query)
-    dog_log(query, response.code)
+    dog_log(query, response)
     response.parsed_response
   end
 
-  def dog_log(message, code)
-    Rails.logger.info("[DogAPI] GET #{message} -> #{code}")
+  def dog_log(message, response)
+    Rails.logger.info("[DogAPI #{response.code}] GET #{message} -> #{response.parsed_response}")
   end
 end
