@@ -8,7 +8,7 @@ class Account < ActiveRecord::Base
 
   validates :name, :key, :deposit_address, :deposited, presence: true
   validates :name, uniqueness: true
-  validates :deposit_address, length: { is: 34 }
+  validates :deposit_address, length: { is: 34 }, uniqueness: true
 
   def self.fetch_deposits
     find_each do |a|
