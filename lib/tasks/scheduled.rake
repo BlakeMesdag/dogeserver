@@ -4,6 +4,6 @@ namespace :scheduled do
   end
 
   task :rollup_tips => :environment do
-    PendingTip.rollup_tips
+    PendingTip.rollup_tips(true)
   end
 end
