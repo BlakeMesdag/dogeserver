@@ -6,18 +6,6 @@ class Tip < ActiveRecord::Base
   validates :to_id, :from_id, :amount, presence: true
   after_create :create_transactions
 
-  def serializable_hash(options = {})
-    super options.merge({ except: [:id, :to_id, :from_id], methods: [:to_name, :from_name] })
-  end
-
-  def to_name
-    to.name
-  end
-
-  def from_name
-    from.name
-  end
-
   def create_transactions
     ActiveRecord::Base.transaction do
       from.transactions.create!(amount: amount * -1)

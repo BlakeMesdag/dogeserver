@@ -15,26 +15,20 @@ class TipsControllerTest < ActionController::TestCase
   end
 
   test "creating a tip with incorrect key" do
-    expected_response = { errors: { from_id: ["can't be blank"] } }
+    expected_response = { errors: "not found" }
 
     post :create, account_name: large_account.name, key: "hax", tip: { to: small_account.name, amount: 10 }, format: :json
 
     assert_equal expected_response.to_json, response.body
-    assert_response :unprocessable_entity
+    assert_response :not_found
   end
 
   test "creating a tip to invalid address" do
-    expected_response = { errors: { to_id: ["can't be blank"] } }
+    expected_response = { errors: "not found" }
 
     post :create, account_name: large_account.name, key: large_account.key, tip: { to: "invalid", amount: 10 }, format: :json
 
     assert_equal expected_response.to_json, response.body
-    assert_response :unprocessable_entity
-  end
-
-  test "creating a tip for more than the sender's account has" do
-    post :create, account_name: large_account.name, key: large_account.key, tip: { to: small_account.name, amount: 9000 }, format: :json
-
-    assert_response :unprocessable_entity
+    assert_response :not_found
   end
 end
