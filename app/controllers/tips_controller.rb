@@ -5,7 +5,7 @@ class TipsController < ApplicationController
     from = Account.where(name: params[:account_name].to_s, key: params[:key].to_s).first!
     to   = Account.where(name: tip_params[:to].to_s).first!
 
-    @tip = PendingTip.create(from: from, to: to, amount: tip_params[:amount].to_s)
+    @tip = from.pending_tips.create(to: to, amount: tip_params[:amount].to_s)
 
     respond_with @tip, location: nil
   end

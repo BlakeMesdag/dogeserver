@@ -31,4 +31,13 @@ class TipsControllerTest < ActionController::TestCase
     assert_equal expected_response.to_json, response.body
     assert_response :not_found
   end
+
+  test "creating a tip with amount greater than account balance" do
+    expected_response = {errors: {amount: ["is greater than account balance"]}}
+
+    post :create, account_name: small_account.name, key: small_account.key, tip: { to: large_account.name, amount: 101 }, format: :json
+
+    assert_equal expected_response.to_json, response.body
+    assert_response :unprocessable_entity
+  end
 end
