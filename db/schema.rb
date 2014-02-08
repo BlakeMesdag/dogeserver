@@ -11,10 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140128074740) do
-
-  # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
+ActiveRecord::Schema.define(version: 20140208193841) do
 
   create_table "accounts", force: true do |t|
     t.string   "name"
@@ -22,20 +19,31 @@ ActiveRecord::Schema.define(version: 20140128074740) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "deposit_address"
-    t.float    "deposited",       default: 0.0
+    t.decimal  "deposited",       precision: 30, scale: 15, default: 0.0
   end
+
+  create_table "pending_tips", force: true do |t|
+    t.decimal  "amount",     precision: 30, scale: 15, default: 0.0
+    t.integer  "to_id"
+    t.integer  "from_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "pending_tips", ["from_id"], name: "index_pending_tips_on_from_id", using: :btree
+  add_index "pending_tips", ["to_id"], name: "index_pending_tips_on_to_id", using: :btree
 
   create_table "tips", force: true do |t|
     t.integer "from_id"
     t.integer "to_id"
-    t.float   "amount"
+    t.decimal "amount",  precision: 30, scale: 15, default: 0.0
   end
 
   add_index "tips", ["from_id"], name: "index_tips_on_from_id", using: :btree
   add_index "tips", ["to_id"], name: "index_tips_on_to_id", using: :btree
 
   create_table "transactions", force: true do |t|
-    t.float    "amount"
+    t.decimal  "amount",     precision: 30, scale: 15, default: 0.0
     t.integer  "account_id"
     t.datetime "created_at"
     t.datetime "updated_at"
