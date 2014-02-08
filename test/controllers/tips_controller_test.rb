@@ -3,7 +3,7 @@ require 'test_helper'
 class TipsControllerTest < ActionController::TestCase
   test "creating a tip" do
     expected_response = {
-      "amount"    => 10.0,
+      "amount"    => "10.0",
       "to_name"   => small_account.name,
       "from_name" => large_account.name
     }
