@@ -3,7 +3,9 @@ class Account < ActiveRecord::Base
   has_many :withdrawals, dependent: :nullify
   has_many :received_tips, class_name: 'Tip', foreign_key: 'to_id', dependent: :nullify
   has_many :sent_tips, class_name: 'Tip', foreign_key: 'from_id', dependent: :nullify
-  has_many :pending_tips, foreign_key: 'from_id', dependent: :nullify
+
+  has_many :pending_sent_tips, class_name: 'PendingTip', foreign_key: 'from_id', dependent: :nullify
+  has_many :pending_received_tips, class_name: 'PendingTip', foreign_key: 'to_id', dependent: :nullify
 
   before_validation :set_deposit_address
 
@@ -11,7 +13,7 @@ class Account < ActiveRecord::Base
   validates :name, uniqueness: true
   validates :deposit_address, length: { is: 34 }, uniqueness: true
 
-  scope :with_pending_tips, -> { joins(:pending_tips).where("`pending_tips`.`id` IS NOT NULL") }
+  scope :with_pending_tips, -> { joins(:pending_sent_tips).where("`pending_tips`.`id` IS NOT NULL") }
 
   def self.fetch_deposits
     find_each do |a|
@@ -22,8 +24,16 @@ class Account < ActiveRecord::Base
     end
   end
 
+  def total_pending_sent_tips
+    pending_sent_tips.sum(:amount)
+  end
+
   def balance
     transactions.sum(:amount)
+  end
+
+  def available_balance
+    balance - total_pending_sent_tips
   end
 
   def serializable_hash(options = {})

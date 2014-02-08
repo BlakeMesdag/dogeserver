@@ -4,7 +4,7 @@ class AccountsController < ApplicationController
   before_filter :load_account, only: [:show, :deposit]
 
   def show
-    respond_with @account.as_json(methods: :balance)
+    respond_with @account.as_json(methods: [:balance, :total_pending_sent_tips, :available_balance])
   end
 
   def create

@@ -10,7 +10,7 @@ class PendingTipRollupWorker
   end
 
   def rollup_pending_tips_for(account)
-    account.pending_tips.find_each do |pending_tip|
+    account.pending_sent_tips.find_each do |pending_tip|
       account.transaction do
         account.sent_tips.create(to: pending_tip.to, amount: pending_tip.amount)
         pending_tip.destroy

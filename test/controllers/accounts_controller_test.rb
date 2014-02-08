@@ -2,9 +2,11 @@ require 'test_helper'
 
 class AccountsControllerTest < ActionController::TestCase
   test 'show account' do
+    expected_json = {name: "unicorn-user-136", deposited: "0.0", balance: "100.0", total_pending_sent_tips: "1.0", available_balance: "99.0"}
+
     get :show, name: small_account.name, key: small_account.key, format: :json
 
-    assert_equal small_account.to_json(methods: :balance), response.body
+    assert_equal expected_json.to_json, response.body
     assert_response :success
   end
 
