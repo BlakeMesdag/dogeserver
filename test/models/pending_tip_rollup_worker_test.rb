@@ -5,9 +5,8 @@ class PendingTipRollupWorkerTest < ActiveSupport::TestCase
     @worker = PendingTipRollupWorker.new
   end
 
-  test "rollup_pending_tips rolls up tips for all accounts" do
-    @worker.expects(:rollup_pending_tips_for).times(2)
-
+  test "rollup_pending_tips rolls up tips for all accounts with pending tips" do
+    @worker.expects(:rollup_pending_tips_for).times(1)
     @worker.rollup_pending_tips
   end
 

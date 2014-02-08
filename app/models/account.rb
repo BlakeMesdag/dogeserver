@@ -11,6 +11,8 @@ class Account < ActiveRecord::Base
   validates :name, uniqueness: true
   validates :deposit_address, length: { is: 34 }, uniqueness: true
 
+  scope :with_pending_tips, -> { joins(:pending_tips).where("`pending_tips`.`id` IS NOT NULL") }
+
   def self.fetch_deposits
     find_each do |a|
       if a.remote_deposits_sum > a.deposited

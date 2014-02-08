@@ -4,7 +4,7 @@ class PendingTipRollupWorker
   end
 
   def rollup_pending_tips
-    Account.find_each do |account|
+    Account.with_pending_tips.find_each do |account|
       rollup_pending_tips_for(account)
     end
   end
