@@ -1,11 +1,6 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
+small:
   amount: 1
-  to_id: 
-  from_id: 
-
-two:
-  amount: 1
-  to_id: 
-  from_id: 
+  from: small
+  to: large

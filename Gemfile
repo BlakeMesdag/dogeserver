@@ -22,6 +22,7 @@ end
 
 group :test do
   gem 'fakeweb', '~> 1.3'
+  gem 'mocha', require: false
 end
 
 group :production do
